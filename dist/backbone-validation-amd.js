@@ -1,6 +1,6 @@
 // Backbone.Validation v0.7.1
 //
-// Copyright (c) 2011-2012 Thomas Pedersen
+// Copyright (c) 2011-2013 Thomas Pedersen
 // Distributed under MIT License
 //
 // Documentation and full license available at:
@@ -407,6 +407,7 @@
       rangeLength: '{0} must be between {1} and {2} characters',
       oneOf: '{0} must be one of: {1}',
       equalTo: '{0} must be the same as {1}',
+      notEqualTo: '{0} must not be the same as {1}',
       pattern: '{0} must be a valid {1}'
     };
   
@@ -589,6 +590,15 @@
         equalTo: function(value, attr, equalTo, model, computed) {
           if(value !== computed[equalTo]) {
             return this.format(defaultMessages.equalTo, this.formatLabel(attr, model), this.formatLabel(equalTo, model));
+          }
+        },
+  
+        // Not Equal to validator
+        // Validates that the value is not equal to the value of the attribute
+        // with the name specified
+        notEqualTo: function(value, attr, equalTo, model, computed) {
+          if (value === computed[equalTo]) {
+            return this.format(defaultMessages.notEqualTo, this.formatLabel(attr, model), this.formatLabel(equalTo, model));
           }
         },
   
